@@ -53,7 +53,7 @@ agent-sec-core/
 
 本次改动主要围绕“让 Agent Sec Core 更适合作为独立的 Agent 安全前置层”展开。
 
-### 1. 新增 Agent 接入前置层
+### 1. 新增 Agent 接入前置层（只是方便测试，无实际意义）
 
 新增目录：
 
