@@ -1,0 +1,31 @@
+{
+  "name": "agent-sec-openclaw-plugin",
+  "version": "0.3.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "openclaw.plugin.json",
+    "scripts/"
+  ],
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "pack": "npm run build && npm pack",
+    "smoke": "npx tsx tests/smoke-test.ts",
+    "test": "npx tsx --test tests/unit/*test.ts"
+  },
+  "peerDependencies": {
+    "openclaw": "*"
+  },
+  "devDependencies": {
+    "@types/node": ">=22",
+    "openclaw": ">=0.8.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,34 @@
+"""code_scan backend — delegates to the code_scanner package."""
+
+from typing import Any
+
+from agent_sec_cli.code_scanner.errors import ErrUnsupportedLang
+from agent_sec_cli.code_scanner.models import Language, Verdict
+from agent_sec_cli.code_scanner.scanner import scan
+from agent_sec_cli.security_middleware.backends.base import BaseBackend
+from agent_sec_cli.security_middleware.context import RequestContext
+from agent_sec_cli.security_middleware.result import ActionResult
+
+
+class CodeScanBackend(BaseBackend):
+    """Scan code snippets for security issues using the regex-based code_scanner engine."""
+
+    def execute(self, ctx: RequestContext, **kwargs: Any) -> ActionResult:
+        code = kwargs.get("code", "")
+        language_str = kwargs.get("language", "bash")
+        try:
+            language = Language(language_str)
+        except ValueError:
+            err = ErrUnsupportedLang(language_str)
+            return ActionResult(
+                success=False,
+                error=f"scan error: {err.message}",
+                exit_code=1,
+            )
+        result = scan(code, language)
+        return ActionResult(
+            success=result.ok,
+            data=result.model_dump(),
+            stdout=result.model_dump_json(indent=2),
+            exit_code=0 if result.verdict != Verdict.ERROR else 1,
+        )

@@ -1,0 +1,17 @@
+sensitive_file_paths:
+  - /etc/shadow
+  - /etc/gshadow
+  - ~/\.ssh
+  - /etc/ssh/
+  - ~/\.gnupg
+  - \.env\b
+  - /etc/machine-id
+  - /etc/passwd
+  - /etc/sudoers
+  - /etc/pam\.d/
+  - /etc/security/
+  - /etc/sysctl\.conf
+  - /etc/sysctl\.d/
+  - /boot/
+  - /usr/lib/systemd/
+  - /etc/systemd/system/
